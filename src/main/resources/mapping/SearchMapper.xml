@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cheap.dao.SearchDao">
+    <select id="querySearchKeywords" parameterType="com.cheap.model.UserKeyWords" resultType="com.cheap.entity.KeyWords">
+        select
+        name,type
+        from keywords
+        <if test="number != null and  number != ''">
+            LIMIT 0,#{number}
+        </if>
+   </select>
+</mapper>
