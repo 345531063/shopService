@@ -83,16 +83,13 @@ public class MyResponse {
      * @param list
      * @return
      */
-    public static MyResponse success(PageInfo pageInfo, List list){
-        MyResponse myResponse = new MyResponse();
-        myResponse.setCode(Integer.valueOf(ErrorCodeEnum.SUCCESS.getCode()));
-        myResponse.setMessage(ErrorCodeEnum.SUCCESS.getCnText());
+    public  void success(PageInfo pageInfo, List list){
+        this.setCode(Integer.valueOf(ErrorCodeEnum.SUCCESS.getCode()));
+        this.setMessage(ErrorCodeEnum.SUCCESS.getCnText());
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("data", list);
         map.put("pageInfo", pageInfo);
-        myResponse.setResult(map);
-
-        return myResponse;
+        this.setResult(map);
     }
 
     /**

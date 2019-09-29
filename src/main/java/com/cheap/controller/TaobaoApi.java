@@ -1,11 +1,9 @@
 package com.cheap.controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.cheap.common.MyResponse;
 import com.cheap.common.PageInfo;
 import com.cheap.model.TbkItemModel;
-import com.github.pagehelper.Page;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -24,9 +22,9 @@ public class TaobaoApi {
     public static final String url = "http://gw.api.taobao.com/router/rest";
 
 
-    public static final String appkey = "27732831";
+    public static final String appkey = "27898249";
 
-    public static final String secret = "6bdf6f96cd31af439313632ca5ba7eb9";
+    public static final String secret = "20c1a0692144a3f87399460a953f50b7";
 
 
     /**
@@ -35,24 +33,25 @@ public class TaobaoApi {
      */
     @RequestMapping(value = {"/queryGoods"},method = RequestMethod.POST)
     public MyResponse getTbkItem(@RequestBody TbkItemModel tbkItemModel) throws ApiException {
-
+        MyResponse myResponse = new MyResponse();
         if ( tbkItemModel.getQ() == null) {
-            MyResponse myResponse = MyResponse.error(KEYWORD_ISNOT);
+            myResponse.error(KEYWORD_ISNOT);
             return  myResponse;
         }
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         TbkDgMaterialOptionalRequest request = new TbkDgMaterialOptionalRequest();
         request.setQ(tbkItemModel.getQ());
+        //request.setCat();
 //        request.setIsTmall(tbkItemModel.getIsTmall());
 //        request.setIsOverseas(tbkItemModel.getIsOverseas());
         request.setPlatform(tbkItemModel.getPlatform());
         request.setPageNo(tbkItemModel.getPageNo());
-        request.setAdzoneId(109238150492L);
+        request.setAdzoneId(109489400113l);
         request.setPageSize(tbkItemModel.getPageSize());
         TbkDgMaterialOptionalResponse response = client.execute(request);
         //log.info("response: {}", response);
         PageInfo pageInfo = new PageInfo(response.getResultList(), response.getTotalResults());
-        MyResponse myResponse = MyResponse.success(pageInfo, response.getResultList());
+        myResponse.success(pageInfo, response.getResultList());
         return myResponse;
     }
 
